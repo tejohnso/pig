@@ -1,0 +1,14 @@
+{
+  "name": "junk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tyler Johnson <mail@tyler-johnson.ca> (http://github.com/tejohnso)",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81"
+  }
+}

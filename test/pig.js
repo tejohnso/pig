@@ -55,13 +55,19 @@ describe("PIG", function() {
     assert.equal(state.activePlayer, 0);
   });
 
+  it("checks if a one was rolled", ()=>{
+    let state = pig.init();
+    state.players[0].rolled = true;
+    assert.ok(pig.rolledAOne(state));
+  });
+
   it("can simulate a game where all players randomly hold", ()=>{
     let state = pig.init();
     let failsafe = 50000;
 
     do {
       failsafe--;
-      if (!failsafe) {throw Error("failed simulation");}
+      if (!failsafe) {throw Error(`failed to produce a winner after ${failsafe} turns`);}
       pig.roll(state);
 
       if (!state.players[state.activePlayer].turnScore || Math.random() >= 0.5) {
@@ -78,7 +84,7 @@ describe("PIG", function() {
 
     do {
       failsafe--;
-      if (!failsafe) {throw Error("failed simulation");}
+      if (!failsafe) {throw Error(`failed to produce a winner after ${failsafe} turns`);}
       pig.roll(state);
 
       if (!state.players[state.activePlayer].turnScore || state.players[state.activePlayer].turnScore > 19) {
