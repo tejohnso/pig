@@ -53,7 +53,7 @@ module.exports = {
     });
 
     screen.render();
-    setTimeout(()=>{icon.destroy();cb(state);}, 500);
+    setTimeout(()=>{icon.destroy();cb(state);}, 3500);
   },
   endUI() {
     screen.destroy();
