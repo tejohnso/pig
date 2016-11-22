@@ -48,7 +48,7 @@ module.exports = {
       type: "ansi",
       height: 100 - (100 / (2 * state.players.length + 1)) + "%",
       left: "center",
-      file: __dirname + "/pig-very-small.jpg",
+      file: require("path").join(__dirname, "img", "pig-very-small.jpg"),
       search: false
     });
 
@@ -211,7 +211,7 @@ module.exports = {
         backendHandler("roll");
       });
       stateListeners.push((state)=>{
-        die.setImage(__dirname + "/dice-" + state.players[i].lastRoll + "-no-border.png");
+        die.setImage(require("path").join(__dirname, "img", "dice-" + state.players[i].lastRoll + "-no-border.png"));
         if (state.activePlayer !== i) {die.hide();} else {die.show();}
         if (state.winner) {die.free();}
       });
