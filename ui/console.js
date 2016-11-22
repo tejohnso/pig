@@ -1,4 +1,8 @@
 const blessed = require("blessed");
+const playerBoxHeight = 12;
+const logHeight = playerBoxHeight / 2;
+const width = 80;
+
 let screen;
 let log;
 let stateListeners = [];
@@ -17,9 +21,9 @@ module.exports = {
 
     log = blessed.log({
       parent: screen,
-      bottom: 0,
-      height: (100 / (2 * state.players.length + 1)) + "%",
-      width: "100%",
+      top: playerBoxHeight * state.players.length,
+      height: logHeight,
+      width: width,
       label: "Log",
       tags: false,
       border: {
@@ -46,8 +50,9 @@ module.exports = {
       parent: screen,
       top: 0,
       type: "ansi",
-      height: 100 - (100 / (2 * state.players.length + 1)) + "%",
-      left: "center",
+      height: playerBoxHeight * state.players.length,
+      width,
+      left: 0,
       file: require("path").join(__dirname, "img", "pig-very-small.jpg"),
       search: false
     });
@@ -62,9 +67,9 @@ module.exports = {
     let playerBoxes = Array.from(Array(state.players.length), (e,i)=>blessed.box({
       parent: screen,
       name: "player-box-" + i,
-      width: "100%",
-      height: (200 / (2 * state.players.length + 1)) + "%",
-      top: ((200 / (2 * state.players.length + 1)) * i) + "%",
+      width: width,
+      height: playerBoxHeight,
+      top: playerBoxHeight * i,
       label: "Player " + (i + 1),
       tags: false,
       border: {
@@ -121,8 +126,8 @@ module.exports = {
 
     let playerDiceBoxes = Array.from(Array(state.players.length), (e,i)=>blessed.box({
       parent: playerBoxes[i],
-      width: "50%",
-      right: 0,
+      width: "50%-5",
+      left: "50%+1"
     }));
 
     let playerInputForms = Array.from(Array(state.players.length), (e,i)=>blessed.form({
@@ -139,7 +144,7 @@ module.exports = {
       clickable: state.activePlayer === i && !state.winner,
       keyable: true,
       shrink: true,
-      left: "center",
+      left: 3,
       bottom: 0,
       style: {
         bg: "grey",
@@ -170,9 +175,9 @@ module.exports = {
       content: "ROLL",
       shrink: true,
       clickable: state.activePlayer === i && !state.winner,
-      left: "center",
+      right: 3,
       keyable: true,
-      top: 0,
+      bottom: 0,
       style: {
         bg: "grey",
         fg: "white",
